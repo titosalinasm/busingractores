@@ -1,0 +1,261 @@
+<app-menu></app-menu>
+<app-banner-principal ></app-banner-principal>
+
+<div class="container">
+  <div class="row justify-content-around">
+    <div class="ctn-steps step0  col-md-9">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm mt-3 mb-3" style="text-align: justify;">
+            <p>
+              "Registro de Infractores de Derechos de Autor"
+              Conforme lo establecido por el Artículo 40 del Decreto Legislativo 807,
+               las sanciones que imponga la Comisión de Derecho de Autor y
+               la Sala Especializada en Propiedad Intelectual del Indecopi, deberán inscribirse
+               en el Registro de Infractores a la legislación sobre Derecho de Autor con la finalidad
+               de informar al público; así como, detectar casos de reincidencia.
+             </p>
+             <p>
+              Dicho registro contiene información suministrada por el Sistema de Gestión de Cobranza
+              y Ejecución Coactiva respecto de las sanciones impuestas en procedimientos administrativos
+              sancionadores a nivel nacional y que se encuentren firmes y/o consentidas.
+             </p>
+            <br>
+            <tabset [justified]="true">
+              <tab heading="Busqueda simple" (selectTab)="selectTab(1)">
+                <br>
+                <form [formGroup]="frmSimple" autocomplete="off">
+                  <div class="form-row align-items-center">
+                    <div class="input-group col-md-12">
+
+                      <input class="form-control py-2" type="search"  placeholder="Buscar..." formControlName="vcTexto">
+
+                      <span class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" (click)="doBusSimple()">
+                            <i class="fa fa-search"></i>
+                        </button>
+                      </span>
+                </div>
+
+                  </div>
+                </form>
+
+              </tab>
+              <tab heading="Busqueda avanzada" (selectTab)="selectTab(2)">
+                <br>
+                <form  [formGroup]="frmAvanzado" autocomplete="off">
+                  <div class="form-group row">
+                    <label  class="col-sm-2 col-form-label">Sancionado:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control"  placeholder="Digite el nombre del sancionado" formControlName="vcNombreComercial">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label  class="col-sm-2 col-form-label">RUC/DNI:</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" placeholder="RUC/DNI" formControlName="vcDocIdentidad">
+                    </div>
+                    <label  class="col-sm-2 col-form-label">N° Expediente:</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" placeholder="N° Expediente" formControlName="vcExpediente">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label  class="col-sm-2 col-form-label">N° Resolución Comisión:</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" placeholder="N° Resolución Comisión" formControlName="vcNumeroResComision">
+                    </div>
+                    <label  class="col-sm-2 col-form-label">N° Resolución Sala:</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" placeholder="N° Resolución Sala" formControlName="vcNumeroResSala">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-12" style="text-align: center;">
+                      <button type="submit" class="btn btn-primary" (click)="  doBusAvanzada()">Buscar</button>
+                    </div>
+                  </div>
+                </form>
+              </tab>
+              <!-- <tab heading="Long Justified">Long Labeled Justified content</tab> -->
+            </tabset>
+            <hr />
+
+            <div class="row text-right">
+              <div class="col-sm-12">
+                <div></div>
+
+                  <p>
+                    <button type="button" class="btn btn-light" style="margin-right: 3px;"
+                    tooltip="Exportar a excel">
+                    <span style="font-size: 1em; color: green">
+                      <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                    <button type="button" class="btn btn-light" style="margin-right: 3px;"
+                      tooltip="Imprimir búsqueda" (click)="imprimir()">
+                      <span style="font-size: 1em; color: green">
+                        <i class="fa fa-print"></i>
+                      </span>
+                    </button>
+                    <button type="button" class="btn btn-light"  (click)="showAll()" tooltip="Expandir" *ngIf="!isShowAll">
+                      <span style="font-size: 1em; color: green;">
+
+                        <i class="fa fa-expand"></i>
+                        <!-- <i class="fa fa-compress"></i> -->
+                      </span>
+                    </button>
+                    <button type="button" class="btn btn-light"  (click)="showAll()" tooltip="Contraer" *ngIf="isShowAll">
+                      <span style="font-size: 1em; color: green;">
+
+                        <i class="fa fa-compress"></i>
+                        <!-- <i class="fa fa-compress"></i> -->
+                      </span>
+                    </button>
+                  </p>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="container mt-2">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul *ngIf="lstInfractorSimple.length>0 && showTab1" class="table_margin" >
+  <li>CDA: Comisión de Derechos de Autor</li>
+  <li>SPI: Sala Especializada en Propiedad Intelectual</li>
+</ul>
+
+<ul *ngIf="lstInfractorAvanzado.length>0 && showTab2" class="table_margin" >
+  <li>CDA: Comisión de Derechos de Autor</li>
+  <li>SPI: Sala Especializada en Propiedad Intelectual</li>
+</ul>
+
+<div class="row" class="table_margin" *ngIf="showTab1">
+  <div class="col-sm-12">
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr class="font-mb">
+        <th >#</th>
+        <th> N° Expediente</th>
+        <th>Sancionado</th>
+        <th >Materia</th>
+        <th>Sanción</th>
+        <th >Opción</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of lstInfractorSimple | paginate: { itemsPerPage: 50, currentPage: paginaActualSimple }; let row = index">
+      <tr class="row-hover">
+        <th>{{row+1}}</th>
+        <td>{{item.vcExpediente}}</td>
+        <td>{{item.vcNombreComercial}}</td>
+        <td>{{item.vcSubMateria}}</td>
+        <td> <b>N° UIT:</b> {{item.vcTotalMontoUit}}</td>
+        <td> <div *ngIf="row==idShow || isShowAll; else showIconDown">
+          <i class="fa fa-chevron-up" (click)="showOne(row)"></i>
+        </div>
+        <ng-template #showIconDown >
+          <i class="fa fa-chevron-down" (click)="showOne(row)"></i>
+        </ng-template>
+      </td>
+        </tr>
+
+        <tr *ngIf="row==idShow || isShowAll">
+          <th  colspan="1" >N Resolución CDA:</th>
+          <td colspan="2">{{item.vcNumeroResComision}}</td>
+          <th colspan="1" >Fecha Resolución CDA:</th>
+          <td colspan="1">{{item.vcFechResComision}}</td>
+
+        </tr>
+        <tr *ngIf="row==idShow || isShowAll">
+          <th colspan="1" style="border: 0px;">N Resolucion SPI:</th>
+          <td colspan="2" style="border: 0px;">{{item.vcNumeroResSala}}</td>
+          <th colspan="1" style="border: 0px;">Fecha Resolución SPI:</th>
+          <td colspan="1" style="border: 0px;">{{item.vcFechResSala}}</td>
+        </tr>
+
+    </tbody>
+  </table>
+
+  <pagination-controls
+    previousLabel="Atras"
+    nextLabel="Siguiente"
+(pageChange)="paginaActualSimple = $event">
+</pagination-controls>
+</div>
+
+</div>
+</div>
+
+<div class="row" class="table_margin" *ngIf="showTab2">
+  <div class="col-sm-12">
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr class="font-mb">
+        <th >#</th>
+        <th> N° Expediente</th>
+        <th>Sancionado</th>
+        <th >Materia</th>
+        <th>Sanción</th>
+        <th >Opción</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of lstInfractorAvanzado | paginate: { itemsPerPage: 50, currentPage: paginaActualAvanzado }; let row = index">
+      <tr class="row-hover">
+        <th>{{row+1}}</th>
+        <td>{{item.vcExpediente}}</td>
+        <td>{{item.vcNombreComercial}}</td>
+        <td>{{item.vcSubMateria}}</td>
+        <td> <b>N° UIT:</b> {{item.vcTotalMontoUit}}</td>
+        <td> <div *ngIf="row==idShow || isShowAll; else showIconDown">
+          <i class="fa fa-chevron-up" (click)="showOne(row)"></i>
+        </div>
+        <ng-template #showIconDown >
+          <i class="fa fa-chevron-down" (click)="showOne(row)"></i>
+        </ng-template>
+      </td>
+        </tr>
+
+
+        <tr *ngIf="row==idShow || isShowAll">
+          <th  colspan="1" >N Resolución CDA:</th>
+          <td colspan="2">{{item.vcNumeroResComision}}</td>
+          <th colspan="1" >Fecha Resolución CDA:</th>
+          <td colspan="1">{{item.vcFechResComision}}</td>
+
+        </tr>
+        <tr *ngIf="row==idShow || isShowAll">
+          <th colspan="1" style="border: 0px;">N Resolucion SPI:</th>
+          <td colspan="2" style="border: 0px;">{{item.vcNumeroResSala}}</td>
+          <th colspan="1" style="border: 0px;">Fecha Resolución SPI:</th>
+          <td colspan="1" style="border: 0px;">{{item.vcFechResSala}}</td>
+        </tr>
+
+    </tbody>
+  </table>
+
+  <pagination-controls
+    previousLabel="Atras"
+    nextLabel="Siguiente"
+(pageChange)="paginaActualAvanzado = $event">
+</pagination-controls>
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+

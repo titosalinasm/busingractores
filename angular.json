@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -17,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/appInfractoresPI",
+            "outputPath": "dist/infractorespi",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -33,7 +36,7 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "prd": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -59,17 +62,59 @@
                   "maximumError": "4kb"
                 }
               ]
-            }
+            },
+            "beta": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.beta.ts"
+                }
+              ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
           }
+        }
         },
+
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "appInfractoresPI:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "appInfractoresPI:build:production"
+            "prd": {
+              "browserTarget": "appInfractoresPI:build:prd"
+            },
+            "beta": {
+              "browserTarget": "appInfractoresPI:build:beta"
+            },
+            "qa": {
+              "browserTarget": "appInfractoresPI:build:qa"
+            },
+            "dev": {
+              "browserTarget": "appInfractoresPI:build:dev"
             }
           }
         },
@@ -91,6 +136,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css"
             ],
             "scripts": []
