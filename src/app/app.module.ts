@@ -23,6 +23,8 @@ import {
   ToastNoAnimation,
   ToastNoAnimationModule,
 } from 'ngx-toastr';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
 
 
 @NgModule({
@@ -32,19 +34,21 @@ import {
     FooterComponent,
     BannerPrincipalComponent,
     MenuComponent,
+    TooltipComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ToastNoAnimationModule.forRoot(),
     ReactiveFormsModule,
     AppRoutingModule,
     TooltipModule.forRoot(),
     NgxSpinnerModule,
     TabsModule.forRoot(),
     NgxPaginationModule,
-    ToastNoAnimationModule.forRoot(),
+    PopoverModule.forRoot(),
   ],
   providers: [
     AvanzadaService,

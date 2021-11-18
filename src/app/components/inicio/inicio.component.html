@@ -22,57 +22,91 @@
              </p>
             <br>
             <tabset [justified]="true">
-              <tab heading="Busqueda simple" (selectTab)="selectTab(1)">
+              <tab heading="Búsqueda simple" (selectTab)="selectTab(1)">
                 <br>
                 <form [formGroup]="frmSimple" autocomplete="off">
-                  <div class="form-row align-items-center">
+                  <div class="form-group row">
                     <div class="input-group col-md-12">
-
-                      <input class="form-control py-2" type="search"  placeholder="Buscar..." formControlName="vcTexto">
-
-                      <span class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" (click)="doBusSimple()">
-                            <i class="fa fa-search"></i>
-                        </button>
-                      </span>
+                      <div class="input-group">
+                      <input class="form-control py-2" type="search"  placeholder="Buscar..."
+                      formControlName="vcTexto" maxlength="40">
+                      <app-tooltip popDescripcion="Debe ingresar mínimo 2 y máximo 40 caracteres.">
+                      </app-tooltip>
+                       </div>
                 </div>
 
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-sm-12" style="text-align: center;">
+                      <button type="submit" class="btn btn-primary" (click)="doBusSimple()"
+                      >Buscar</button>
+                    </div>
                   </div>
                 </form>
 
               </tab>
-              <tab heading="Busqueda avanzada" (selectTab)="selectTab(2)">
+              <tab heading="Búsqueda avanzada" (selectTab)="selectTab(2)">
                 <br>
                 <form  [formGroup]="frmAvanzado" autocomplete="off">
                   <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label">Sancionado:</label>
+                    <label  class="col-sm-2 col-form-label label_buscar">Sancionado:</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control"  placeholder="Digite el nombre del sancionado" formControlName="vcNombreComercial">
+
+                      <div class="input-group">
+                      <input type="text" class="form-control"
+                      placeholder="Digite el nombre del sancionado"
+                      formControlName="vcNombreComercial" maxlength="40">
+                      <app-tooltip popDescripcion="Debe ingresar como minimo 2 y máximo 40 dígitos.">
+                      </app-tooltip>
+                      </div>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label">RUC/DNI:</label>
+                    <label  class="col-sm-2 col-form-label label_buscar">RUC/DNI:</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" placeholder="RUC/DNI" formControlName="vcDocIdentidad">
+                      <div class="input-group">
+                      <input type="text" class="form-control" placeholder="RUC/DNI"
+                       formControlName="vcDocIdentidad" maxlength="11">
+                       <app-tooltip popDescripcion="Debe ingresar mínimo 8 y máximo 11 dígitos.">
+                      </app-tooltip>
+                       </div>
                     </div>
-                    <label  class="col-sm-2 col-form-label">N° Expediente:</label>
+                    <label  class="col-sm-2 col-form-label label_buscar">N° Expediente:</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" placeholder="N° Expediente" formControlName="vcExpediente">
+                      <div class="input-group">
+                      <input type="text" class="form-control" placeholder="N° Expediente"
+                       formControlName="vcExpediente" maxlength="20">
+                       <app-tooltip popDescripcion="Debe ingresar mínimo 3 y máximo 20 caracteres.">
+                      </app-tooltip>
+                       </div>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label">N° Resolución Comisión:</label>
+                    <label  class="col-sm-2 col-form-label label_buscar">N° Resolución CDA:</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" placeholder="N° Resolución Comisión" formControlName="vcNumeroResComision">
+                      <div class="input-group">
+                      <input type="text" class="form-control"
+                       placeholder="N° Resolución Comisión"
+                       formControlName="vcNumeroResComision" maxlength="15">
+                       <app-tooltip popDescripcion="Debe ingresar mínimo 3 y máximo 15 caracteres.">
+                      </app-tooltip>
+                       </div>
                     </div>
-                    <label  class="col-sm-2 col-form-label">N° Resolución Sala:</label>
+                    <label  class="col-sm-2 col-form-label label_buscar">N° Resolucion SPI:</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" placeholder="N° Resolución Sala" formControlName="vcNumeroResSala">
+                      <div class="input-group">
+                      <input type="text" class="form-control" placeholder="N° Resolución Sala"
+                       formControlName="vcNumeroResSala" maxlength="15">
+                       <app-tooltip popDescripcion="Debe ingresar mínimo 3 y máximo 15 caracteres.">
+                      </app-tooltip>
+                       </div>
                     </div>
                   </div>
                   <div class="form-group row">
                     <div class="col-sm-12" style="text-align: center;">
-                      <button type="submit" class="btn btn-primary" (click)="  doBusAvanzada()">Buscar</button>
+                      <button type="submit" class="btn btn-primary" (click)="doBusAvanzada()"
+                      >Buscar</button>
                     </div>
                   </div>
                 </form>
@@ -87,11 +121,17 @@
 
                   <p>
                     <button type="button" class="btn btn-light" style="margin-right: 3px;"
-                    tooltip="Exportar a excel">
+                    tooltip="Exportar a excel" (click)="exportAsXLSXSimple()" *ngIf="showTab1">
                     <span style="font-size: 1em; color: green">
                       <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                     </span>
                   </button>
+                  <button type="button" class="btn btn-light" style="margin-right: 3px;"
+                  tooltip="Exportar a excel" (click)="exportAsXLSXSAvanzada()" *ngIf="showTab2">
+                  <span style="font-size: 1em; color: green">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  </span>
+                </button>
                     <button type="button" class="btn btn-light" style="margin-right: 3px;"
                       tooltip="Imprimir búsqueda" (click)="imprimir()">
                       <span style="font-size: 1em; color: green">
@@ -138,7 +178,20 @@
   <li>SPI: Sala Especializada en Propiedad Intelectual</li>
 </ul>
 
-<div class="row" class="table_margin" *ngIf="showTab1">
+<div class="row" class="table_margin" *ngIf="lstInfractorSimple.length==0 && showTab1">
+  <div class="col-sm-12" style="text-align: center;">
+Coloque únicamente la información que considere necesaria para la búsqueda.
+</div>
+</div>
+
+<div class="row" class="table_margin" *ngIf="lstInfractorAvanzado.length==0 && showTab2">
+  <div class="col-sm-12" style="text-align: center;">
+
+Coloque únicamente la información que considere necesaria para la búsqueda.
+</div>
+</div>
+
+<div class="row" class="table_margin" *ngIf="showTab1 && lstInfractorSimple.length!=0">
   <div class="col-sm-12">
 <div class="table-responsive">
   <table class="table">
@@ -169,14 +222,14 @@
         </tr>
 
         <tr *ngIf="row==idShow || isShowAll">
-          <th  colspan="1" >N Resolución CDA:</th>
+          <th  colspan="1" >N° Resolución CDA:</th>
           <td colspan="2">{{item.vcNumeroResComision}}</td>
           <th colspan="1" >Fecha Resolución CDA:</th>
           <td colspan="1">{{item.vcFechResComision}}</td>
 
         </tr>
         <tr *ngIf="row==idShow || isShowAll">
-          <th colspan="1" style="border: 0px;">N Resolucion SPI:</th>
+          <th colspan="1" style="border: 0px;">N° Resolucion SPI:</th>
           <td colspan="2" style="border: 0px;">{{item.vcNumeroResSala}}</td>
           <th colspan="1" style="border: 0px;">Fecha Resolución SPI:</th>
           <td colspan="1" style="border: 0px;">{{item.vcFechResSala}}</td>
@@ -195,7 +248,7 @@
 </div>
 </div>
 
-<div class="row" class="table_margin" *ngIf="showTab2">
+<div class="row" class="table_margin" *ngIf="showTab2 && lstInfractorAvanzado.length!=0">
   <div class="col-sm-12">
 <div class="table-responsive">
   <table class="table">

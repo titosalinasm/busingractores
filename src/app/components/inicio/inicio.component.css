@@ -7,6 +7,10 @@
   background-color: #c7c7c7 !important;
 }
 
+.label_buscar{
+  font-weight: 700;
+}
+
 @media screen and (max-width: 800px) {
   .table_margin{
     margin-left: 30px; margin-right:30px;

@@ -3,6 +3,6 @@ export const environment = {
   // apiURL: '--qa',
   apiURL: {
     registroURL: 'https://beta.indecopi.gob.pe/appDDAInfractorApi',
-    // tokenURL: 'https://desapache.indecopi.gob.pe/appTodosServicioAutorizacion/oauth/token',
+    apiUrlServiceOauth:  'https://beta.indecopi.gob.pe/appTodosServicioAutorizacion'
   }
 };
