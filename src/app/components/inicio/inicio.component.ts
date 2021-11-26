@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { TokenService } from 'src/app/services/token.service';
 import { ToastrService } from 'ngx-toastr';
 import { ExcelService } from 'src/app/services/excel.service';
+import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class InicioComponent implements OnInit {
     vcExpediente: ['', ],
     vcNumeroResComision: ['', ],
     vcNumeroResSala: ['', ],
+    vcDenunciante: ['', ],
   });
 
 
@@ -52,24 +54,60 @@ export class InicioComponent implements OnInit {
 
   constructor(    private router: Router,
                   private route: ActivatedRoute,
+
                   private _avanzadaService: AvanzadaService,
                   private _simpleService: SimpleService,
                   private formBuilder: FormBuilder,
                   private _spinner: NgxSpinnerService,
                   private tokenService : TokenService,
                   private toastr: ToastrService,
-                  private _excelService : ExcelService
+                  private _excelService : ExcelService,
+                  private confirmationDialogService: ConfirmationDialogService,
                   ) {
                     this.obtenerToken();
                    }
-
-  // vcManual: string;
-
 
   ngOnInit() {
 
   }
 
+  doLimpiarAvanzado(){
+    this.confirmationDialogService.confirm('¿Está seguro que deseas borrar la información?', 'Si borras la información, ya no podrás recuperarlo.')
+      .then((confirmed) =>
+      {
+     if(confirmed){
+      this.frmAvanzado.reset();
+      this.lstInfractorAvanzado=[];
+      }else{
+        console.log("Cancelado");
+      }
+      }
+      )
+      .catch(() => {
+      console.log("Sucedio un error");
+      }
+
+      );
+  }
+
+doLimpiarSimple(){
+  this.confirmationDialogService.confirm('¿Está seguro que deseas borrar la información?', 'Si borras la información, ya no podrás recuperarlo.')
+    .then((confirmed) =>
+    {
+	 if(confirmed){
+    this.frmSimple.reset();
+    this.lstInfractorSimple=[];
+    }else{
+      console.log("Cancelado");
+    }
+    }
+    )
+    .catch(() => {
+    console.log("Sucedio un error");
+    }
+
+    );
+}
 
   doValidarSimple(){
     let blBotonBuscarSimple=false;
@@ -86,6 +124,9 @@ export class InicioComponent implements OnInit {
     if(!!this.frmAvanzado.value.vcNombreComercial && this.frmAvanzado.value.vcNombreComercial.length>1){
       blBotonBuscarAvanzado=true;
     }else{
+      if(!!this.frmAvanzado.value.vcDenunciante && this.frmAvanzado.value.vcDenunciante.length>1){
+        blBotonBuscarAvanzado=true;
+      }else{
       if(!!this.frmAvanzado.value.vcDocIdentidad && this.frmAvanzado.value.vcDocIdentidad.length>8){
         blBotonBuscarAvanzado=true;
       }else{
@@ -102,6 +143,7 @@ export class InicioComponent implements OnInit {
             }
           }
         }
+      }
       }
     }
 
@@ -198,6 +240,7 @@ export class InicioComponent implements OnInit {
       vcExpediente: this.frmAvanzado.value.vcExpediente,
       vcNumeroResComision: this.frmAvanzado.value.vcNumeroResComision,
       vcNumeroResSala: this.frmAvanzado.value.vcNumeroResSala,
+      vcDenunciante : this.frmAvanzado.value.vcDenunciante
     }
     this._avanzadaService.getWithPost$(param).subscribe(
       resp=>{

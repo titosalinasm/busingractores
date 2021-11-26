@@ -38,9 +38,12 @@
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-sm-12" style="text-align: center;">
+                    <div class="col-sm-6" style="text-align: right;">
                       <button type="submit" class="btn btn-primary" (click)="doBusSimple()"
                       >Buscar</button>
+                    </div>
+                    <div class="col-sm-6" style="text-align: left;">
+                      <button type="button" class="btn btn-danger" (click)="doLimpiarSimple()">Limpiar</button>
                     </div>
                   </div>
                 </form>
@@ -51,12 +54,21 @@
                 <form  [formGroup]="frmAvanzado" autocomplete="off">
                   <div class="form-group row">
                     <label  class="col-sm-2 col-form-label label_buscar">Sancionado:</label>
-                    <div class="col-sm-10">
-
+                    <div class="col-sm-4">
                       <div class="input-group">
                       <input type="text" class="form-control"
-                      placeholder="Digite el nombre del sancionado"
+                      placeholder="Sancionado"
                       formControlName="vcNombreComercial" maxlength="40">
+                      <app-tooltip popDescripcion="Debe ingresar como minimo 2 y máximo 40 dígitos.">
+                      </app-tooltip>
+                      </div>
+                    </div>
+                    <label  class="col-sm-2 col-form-label label_buscar">Denunciante:</label>
+                    <div class="col-sm-4">
+                      <div class="input-group">
+                      <input type="text" class="form-control"
+                      placeholder="Denunciante"
+                      formControlName="vcDenunciante" maxlength="40">
                       <app-tooltip popDescripcion="Debe ingresar como minimo 2 y máximo 40 dígitos.">
                       </app-tooltip>
                       </div>
@@ -72,7 +84,7 @@
                       </app-tooltip>
                        </div>
                     </div>
-                    <label  class="col-sm-2 col-form-label label_buscar">N° Expediente:</label>
+                    <label  class="col-sm-2 col-form-label label_buscar">N° Exp.:</label>
                     <div class="col-sm-4">
                       <div class="input-group">
                       <input type="text" class="form-control" placeholder="N° Expediente"
@@ -83,7 +95,7 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label label_buscar">N° Resolución CDA:</label>
+                    <label  class="col-sm-2 col-form-label label_buscar">N° Resol. CDA:</label>
                     <div class="col-sm-4">
                       <div class="input-group">
                       <input type="text" class="form-control"
@@ -93,7 +105,7 @@
                       </app-tooltip>
                        </div>
                     </div>
-                    <label  class="col-sm-2 col-form-label label_buscar">N° Resolucion SPI:</label>
+                    <label  class="col-sm-2 col-form-label label_buscar">N° Resol. SPI:</label>
                     <div class="col-sm-4">
                       <div class="input-group">
                       <input type="text" class="form-control" placeholder="N° Resolución Sala"
@@ -104,9 +116,13 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <div class="col-sm-12" style="text-align: center;">
+                    <div class="col-sm-6" style="text-align: right;">
                       <button type="submit" class="btn btn-primary" (click)="doBusAvanzada()"
                       >Buscar</button>
+
+                    </div>
+                    <div class="col-sm-6" style="text-align: left;">
+                      <button type="button" class="btn btn-danger" (click)="doLimpiarAvanzado()">Limpiar</button>
                     </div>
                   </div>
                 </form>
@@ -200,7 +216,7 @@ Coloque únicamente la información que considere necesaria para la búsqueda.
         <th >#</th>
         <th> N° Expediente</th>
         <th>Sancionado</th>
-        <th >Materia</th>
+        <!-- <th >Materia</th> -->
         <th>Sanción</th>
         <th >Opción</th>
       </tr>
@@ -210,7 +226,7 @@ Coloque únicamente la información que considere necesaria para la búsqueda.
         <th>{{row+1}}</th>
         <td>{{item.vcExpediente}}</td>
         <td>{{item.vcNombreComercial}}</td>
-        <td>{{item.vcSubMateria}}</td>
+        <!-- <td>{{item.vcSubMateria}}</td> -->
         <td> <b>N° UIT:</b> {{item.vcTotalMontoUit}}</td>
         <td> <div *ngIf="row==idShow || isShowAll; else showIconDown">
           <i class="fa fa-chevron-up" (click)="showOne(row)"></i>
@@ -223,14 +239,14 @@ Coloque únicamente la información que considere necesaria para la búsqueda.
 
         <tr *ngIf="row==idShow || isShowAll">
           <th  colspan="1" >N° Resolución CDA:</th>
-          <td colspan="2">{{item.vcNumeroResComision}}</td>
+          <td colspan="1">{{item.vcNumeroResComision}}</td>
           <th colspan="1" >Fecha Resolución CDA:</th>
           <td colspan="1">{{item.vcFechResComision}}</td>
 
         </tr>
         <tr *ngIf="row==idShow || isShowAll">
           <th colspan="1" style="border: 0px;">N° Resolucion SPI:</th>
-          <td colspan="2" style="border: 0px;">{{item.vcNumeroResSala}}</td>
+          <td colspan="1" style="border: 0px;">{{item.vcNumeroResSala}}</td>
           <th colspan="1" style="border: 0px;">Fecha Resolución SPI:</th>
           <td colspan="1" style="border: 0px;">{{item.vcFechResSala}}</td>
         </tr>
@@ -257,7 +273,7 @@ Coloque únicamente la información que considere necesaria para la búsqueda.
         <th >#</th>
         <th> N° Expediente</th>
         <th>Sancionado</th>
-        <th >Materia</th>
+        <!-- <th >Materia</th> -->
         <th>Sanción</th>
         <th >Opción</th>
       </tr>
@@ -267,7 +283,7 @@ Coloque únicamente la información que considere necesaria para la búsqueda.
         <th>{{row+1}}</th>
         <td>{{item.vcExpediente}}</td>
         <td>{{item.vcNombreComercial}}</td>
-        <td>{{item.vcSubMateria}}</td>
+        <!-- <td>{{item.vcSubMateria}}</td> -->
         <td> <b>N° UIT:</b> {{item.vcTotalMontoUit}}</td>
         <td> <div *ngIf="row==idShow || isShowAll; else showIconDown">
           <i class="fa fa-chevron-up" (click)="showOne(row)"></i>
@@ -281,14 +297,14 @@ Coloque únicamente la información que considere necesaria para la búsqueda.
 
         <tr *ngIf="row==idShow || isShowAll">
           <th  colspan="1" >N Resolución CDA:</th>
-          <td colspan="2">{{item.vcNumeroResComision}}</td>
+          <td colspan="1">{{item.vcNumeroResComision}}</td>
           <th colspan="1" >Fecha Resolución CDA:</th>
           <td colspan="1">{{item.vcFechResComision}}</td>
 
         </tr>
         <tr *ngIf="row==idShow || isShowAll">
           <th colspan="1" style="border: 0px;">N Resolucion SPI:</th>
-          <td colspan="2" style="border: 0px;">{{item.vcNumeroResSala}}</td>
+          <td colspan="1" style="border: 0px;">{{item.vcNumeroResSala}}</td>
           <th colspan="1" style="border: 0px;">Fecha Resolución SPI:</th>
           <td colspan="1" style="border: 0px;">{{item.vcFechResSala}}</td>
         </tr>

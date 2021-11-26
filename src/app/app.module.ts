@@ -25,6 +25,8 @@ import {
 } from 'ngx-toastr';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationDialogService } from './components/confirmation-dialog/confirmation-dialog.service';
 
 
 @NgModule({
@@ -49,10 +51,12 @@ import { TooltipComponent } from './components/tooltip/tooltip.component';
     TabsModule.forRoot(),
     NgxPaginationModule,
     PopoverModule.forRoot(),
+    NgbModule,
   ],
   providers: [
     AvanzadaService,
     SimpleService,
+    ConfirmationDialogService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
